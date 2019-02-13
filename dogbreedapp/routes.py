@@ -1,6 +1,15 @@
 from dogbreedapp import app
 
-from flask import render_template, redirect
+from flask import render_template, request
+from werkzeug.utils import secure_filename
+import os
+from dogbreedapp.classification import classify
+
+def upload_folder():
+    return app.config['UPLOAD_FOLDER']
+
+def upload_filepath(filename):
+    return os.path.join(upload_folder(), filename)
 
 @app.route('/')
 @app.route('/index')
@@ -12,6 +21,10 @@ def upload():
     """
     Upload an image file
     """
-    return render_template('index.html', contains_human_face=False,
-                                contains_dog=True,
-                                dog_breed='mambo jambo')
+
+    file = request.files['query']
+    filepath = upload_filepath(secure_filename(file.filename))
+    file.save(filepath)
+
+    return render_template('index.html', classification=classify(filepath))
+

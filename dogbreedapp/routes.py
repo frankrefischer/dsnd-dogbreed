@@ -6,9 +6,11 @@ import os
 from dogbreedapp.classification import classify
 
 def upload_folder():
+    "utility to get the configured upload folder in a nicer, more readable way."
     return app.config['UPLOAD_FOLDER']
 
 def upload_filepath(filename):
+    "utility to get the upload filepath for a filename in a nicer, more readable way."
     return os.path.join(upload_folder(), filename)
 
 @app.route('/')
@@ -19,7 +21,7 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload():
     """
-    Upload an image file
+    Upload an image file.
     """
 
     file = request.files['query']
@@ -31,4 +33,7 @@ def upload():
 
 @app.route('/uploads/<path:filename>')
 def download_file(filename):
+    """
+    Serve the uploaded images.
+    """
     return send_from_directory('uploads', filename, as_attachment=True)

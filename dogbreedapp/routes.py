@@ -1,6 +1,6 @@
 from dogbreedapp import app
 
-from flask import render_template, request
+from flask import render_template, request, send_from_directory
 from werkzeug.utils import secure_filename
 import os
 from dogbreedapp.classification import classify
@@ -25,6 +25,10 @@ def upload():
     file = request.files['query']
     filepath = upload_filepath(secure_filename(file.filename))
     file.save(filepath)
+    classification = classify(filepath)
+    classification['filename'] = file.filename
+    return render_template('index.html', classification=classification)
 
-    return render_template('index.html', classification=classify(filepath))
-
+@app.route('/uploads/<path:filename>')
+def download_file(filename):
+    return send_from_directory('uploads', filename, as_attachment=True)

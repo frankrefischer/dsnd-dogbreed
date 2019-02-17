@@ -3,6 +3,13 @@
 ## Contents
 
 * [Project definition](https://github.com/frankrefischer/dsnd-dogbreed/#project-definition)
+* [Analysis](https://github.com/frankrefischer/dsnd-dogbreed/#analysis)
+* [Detecting a human face](https://github.com/frankrefischer/dsnd-dogbreed/#detecting-a-human-face)
+* [Detecting a dog](https://github.com/frankrefischer/dsnd-dogbreed/#detecting-a-dog)
+* [Determining the most resembling dog breed](https://github.com/frankrefischer/dsnd-dogbreed/#determining-the-most-resembling-dog-breed)
+* [Conclusion](https://github.com/frankrefischer/dsnd-dogbreed/#conclusion)
+* [Libraries used](https://github.com/frankrefischer/dsnd-dogbreed/#libraries-used)
+* [How to run the application locally](https://github.com/frankrefischer/dsnd-dogbreed/#how-to-run-the-application-locally)
 
 ## Project definition
 
@@ -102,18 +109,31 @@ VGG16 and VGG19 were much better than a CNN from scratch.
 
 But InceptionV3 and Xception topped them with test accuracies >80%.
 
-Xception got the best test accuracy.
+Xception got the best test accuracy: thats why we used it for the implementation.
 
 For all models evaluated we did not invest much effort in tuning the model.
 
 To get further improvements we could:
-    - do data augmentation on the image sets
-    - add dropout
-    - do grid search of model parameters
-    
+    * do data augmentation on the image sets
+    * add dropout
+    * do grid search of model parameters
+
 ## Libraries used
+
+The following libraries were used:
+* flask for the implementation of the web app
+* keras and tensorflow for the usage of the prediction models
+* cv2 for the usage of the haar cascade classifier
+* and: numpy, json, werkzeug
 
 ## How to run the application locally
 
-## The files
+```
+cd dogbreedapp
+mkdir uploads
+python dogbreedapp.py
+```
+
+Then open in browser: http://0.0.0.0:3001
+
 

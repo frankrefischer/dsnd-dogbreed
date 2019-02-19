@@ -22,7 +22,18 @@ That is realized by using a pretrained convolutional network with transfer learn
 
 Additionally for every image will be detected if it contains a dog or a human face.
 
+### Metrics
+
+clearly define the metrics or calculations you will use to measure performance of a model or result in your project.
+
+These calculations and metrics should be justified based on the characteristics of the problem and problem domain.
+Why was "accuracy" chosen?
+
+
+
 ## Analysis
+
+In this section, you will be expected to analyze the data you are using for the problem. This data can either be in the form of a dataset (or datasets), input data (or input files), or even an environment. The type of data should be thoroughly described and, if possible, have basic statistics and information presented (such as discussion of input features or defining characteristics about the input or environment). Any abnormalities or interesting qualities about the data that may need to be addressed have been identified (such as features that need to be transformed or the possibility of outliers).
 
 The models used in this app were developed in a udacity workspace environment with a gpu.
 

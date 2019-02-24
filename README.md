@@ -68,7 +68,7 @@ The models used in this app were developed in a udacity workspace environment wi
 
 ### Preprocessing steps
 
-The Keras CNN with Tensorflow backend expects an tensor with the shape:
+The Keras CNN with Tensorflow backend expects a tensor with the shape:
 
 >(n_images, n_rows, n_columns, n_channels)
 
@@ -81,12 +81,14 @@ Where:
 So each image has to be:
 * loaded from disk
 * scaled to a size of 224x224 pixels
-* be converted to tensor of the required shape
+* be converted to a tensor of the required shape
 
 This was done by the following code:
 
 ```python
-from keras.preprocessing import image                  
+from keras.preprocessing import image
+import numpy as np
+
 def path_to_tensor(img_path):
     # loads RGB image as PIL.Image.Image type
     img = image.load_img(img_path, target_size=(224, 224))
@@ -95,20 +97,6 @@ def path_to_tensor(img_path):
     # convert 3D tensor to 4D tensor with shape (1, 224, 224, 3) and return 4D tensor
     return np.expand_dims(x, axis=0)
 ```
-
-The `path_to_tensor` function below takes a string-valued file path to a color image as input and returns a 4D tensor suitable for supplying to a Keras CNN.  The function first loads the image and resizes it to a square image that is $224 \times 224$ pixels.  Next, the image is converted to an array, which is then resized to a 4D tensor.  In this case, since we are working with color images, each image has three channels.  Likewise, since we are processing a single image (or sample), the returned tensor will always have shape
-
-$$
-(1, 224, 224, 3).
-$$
-
-The `paths_to_tensor` function takes a numpy array of string-valued image paths as input and returns a 4D tensor with shape 
-
-$$
-(\text{nb_samples}, 224, 224, 3).
-$$
-
-Here, `nb_samples` is the number of samples, or number of images, in the supplied array of image paths.  It is best to think of `nb_samples` as the number of 3D tensors (where each 3D tensor corresponds to a different image) in your dataset!
 
 ### Detecting a human face
 

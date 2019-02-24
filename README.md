@@ -22,44 +22,15 @@ That is realized by using a pretrained convolutional network with transfer learn
 
 Additionally for every image will be detected if it contains a dog or a human face.
 
-### Metrics
-
-clearly define the metrics or calculations you will use to measure performance of a model or result in your project.
-
-These calculations and metrics should be justified based on the characteristics of the problem and problem domain.
-Why was "accuracy" chosen?
-
-
-
-## Analysis
-
-In this section, you will be expected to analyze the data you are using for the problem. This data can either be in the form of a dataset (or datasets), input data (or input files), or even an environment. The type of data should be thoroughly described and, if possible, have basic statistics and information presented (such as discussion of input features or defining characteristics about the input or environment). Any abnormalities or interesting qualities about the data that may need to be addressed have been identified (such as features that need to be transformed or the possibility of outliers).
-
-The models used in this app were developed in a udacity workspace environment with a gpu.
-
-The training, validation and testing data was provided by udacity.
-It contained 8351 images of dogs categorized into 133 dog breeds.
-
-These images were splitted into:
-* 6680 images for training
-* 835 images for validation
-* 836 images for testing 
-
-For the model detecting a human face a collection of 13233 images of human faces was used.
-
-### Detecting a human face
-
-For detecting human faces open CV's implementation of Haar feature based cascade classifiers was used.
+### Metric for face detection
 
 To test the quality of the face detection method, we chose 100 random images from the of human face images and 100 random images from the set of dog images.
 
-From the subset with 100 human faces the haar cascade classifier detected in every image a human face. Thats what we expected.
+From the subset with 100 human faces classifier detected in every image a human face. Thats what we expected.
 
-From the subset with 100 dog images the haar cascade classifier detected in 11 images a human face. Here we would have wished, that none was detected.
+From the subset with 100 dog images the haar cascade classifier detected in 11 images a human face. Here we would have wished, that none was detected, but a rate of 11% is sufficient for our purposes.
 
-### Detecting a dog
-
-For detecting dogs we used the ResNet50 model with weights trained on the imagenet data set.
+### Metric for dog detection
 
 To test the quality of the dog detection method, we used the same procedure as for the human face detection.
 
@@ -68,6 +39,45 @@ From the subset of with 100 human faces, in no image a dog was detected.
 From the subset with 100 dogs, in every image a dog was detected.
 
 Thats perfect.
+
+### Metric for breed prediction
+
+We used accuracy for performance measurement of of the dog breed prediction model.
+It fits multiclass classification and its interpretation is quite intuitive: percentage of total images classified correctly.
+
+## Analysis
+
+>In this section, you will be expected to analyze the data you are using for the problem. This data can either be in the form of a dataset (or datasets), input data (or input files), or even an environment. The type of data should be thtoroughly described and, if possible, have basic statistics and information presented (such as discussion of input features or defining characteristics about the input or environment). Any abnormalities or interesting qualities about the data that may need to be addressed have been identified (such as features that need to be transformed or the possibility of outliers).
+
+The training, validation and testing data was provided by udacity.
+
+It contained 8351 images of dogs categorized into 133 dog breeds.
+
+These images were splitted into:
+* 6680 images for training
+* 835 images for validation
+* 836 images for testing 
+
+The distribution of images to dog breed categories was roughly similar in all three sets:
+
+![<Category Distribution](<category_distribution.png>)
+
+The x axis simply lists the indices of the 133 dog breed categories, ranging from 0 to 132. On the y axis you can see, how many percents of the image set belong to a dog breed category with a given index. As you can see the curves for all three sets (training, validation, tests) run roughly parallel. So there are no unbalanced distributions of categories between the three images sets.
+
+## Methodology
+
+The models used in this app were developed in a udacity workspace environment with a gpu.
+
+
+### Detecting a human face
+
+For detecting human faces open CV's implementation of Haar feature based cascade classifiers was used.
+
+
+### Detecting a dog
+
+For detecting dogs we used the ResNet50 model with weights trained on the imagenet data set.
+
 
 ### Determining the most resembling dog breed
 

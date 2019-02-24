@@ -137,19 +137,51 @@ Thats pretty bad and not much better than he dumbest method possible: choosing o
 
 ### using pretrained CNNs with transfer learning
 
-The second try was to compare 4 pretrained models with transfer learning.
-On top of the pretrained model, we added a global average pooling layer and a dense layer with 133 units.
+The second try was to compare 5 pretrained models with transfer learning.
+On top of the pretrained model, we added a global average pooling layer and a two dense layers with 133 units in each one.
+
 ```
-model = Sequential()
+        model = Sequential()
         model.add(GlobalAveragePooling2D(input_shape=self.train.shape[1:]))
-        model.add(Dense(133, activation='softmax'))```
-```
+        model.add(Dense(133, activation='relu'))
+        model.add(Dense(133, activation='softmax'))
+```        
 
 The results were:
-* VGG16: test accuracy of 40.55%
-* VGG19: test accuracy of 45.45%
-* InceptionV3: test accuracy of 80.02%
-* Xception: test accuracy of 84.45%
+* VGG16: test accuracy of 69.02%
+* VGG19: test accuracy of 69.02% (really!)
+* ResNet50: test accuracy of 75.84%
+* InceptionV3: test accuracy of 77.75%
+* Xception: test accuracy of 80.26%
+
+## Refinement
+
+### Overfitting
+
+Below we compare the history of training and validation accuracy over 20 epochs for all five models.
+
+On the left there is a run without a dropout layer.
+On the right there is a run with a 50% dropout layer added.
+
+For all models, overfitting starts early on with the second epoch.
+
+Introducing the dropout layer reduces overfitting, but the validation accuracy does not increase.
+
+![<>](<VGG16_without_dropout.png>)
+![<>](<VGG16_with_dropout.png>)
+
+![<>](<VGG19_without_dropout.png>)
+![<>](<VGG19_with_dropout.png>)
+
+![<>](<ResNet50_without_dropout.png>)
+![<>](<ResNet50_with_dropout.png>)
+
+![<>](<InceptionV3_without_dropout.png>)
+![<>](<InceptionV3_with_dropout.png>)
+
+![<>](<Xception_without_dropout.png>)
+![<>](<Xception_with_dropout.png>)
+
 
 ## Conclusion
 
@@ -157,16 +189,26 @@ Using pretrained CNNs resulted in much better test accuracy than training a CNN 
 
 VGG16 and VGG19 were much better than a CNN from scratch.
 
-But InceptionV3 and Xception topped them with test accuracies >80%.
+InceptionV3 and Xception topped them with the best test accuracies.
 
 Xception got the best test accuracy: thats why we used it for the implementation.
 
 For all models evaluated we did not invest much effort in tuning the model.
+Adding dropout to reduce overfitting did not work out.
 
 To get further improvements we could:
     * do data augmentation on the image sets
-    * add dropout
     * do grid search of model parameters
+
+### Some Reflections
+
+With pretrained CNNs its quite easy -- even for a newbie like me -- to get acceptable performance for a toy task like classifying dog breeds.
+
+I was surprised, that adding dropout did not help out to improve performance. The overfitting was reduced, but no performance gain was made.
+
+When in a hurry to get quick results I would start next time with Xception immediately and invest more time in tuning.
+
+Data augmentation is the next step I will take to increase performance.
 
 ## Libraries used
 

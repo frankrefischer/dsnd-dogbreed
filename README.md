@@ -47,8 +47,6 @@ It fits multiclass classification and its interpretation is quite intuitive: per
 
 ## Analysis
 
->In this section, you will be expected to analyze the data you are using for the problem. This data can either be in the form of a dataset (or datasets), input data (or input files), or even an environment. The type of data should be thtoroughly described and, if possible, have basic statistics and information presented (such as discussion of input features or defining characteristics about the input or environment). Any abnormalities or interesting qualities about the data that may need to be addressed have been identified (such as features that need to be transformed or the possibility of outliers).
-
 The training, validation and testing data was provided by udacity.
 
 It contained 8351 images of dogs categorized into 133 dog breeds.
